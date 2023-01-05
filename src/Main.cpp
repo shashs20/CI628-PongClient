@@ -1,4 +1,6 @@
 #include "SDL_net.h"
+#include "SDL_image.h"
+#include "SDL_mixer.h"
 
 #include "MyGame.h"
 
@@ -113,12 +115,7 @@ void loop(SDL_Renderer* renderer) {
 }
 
 int run_game() {
-    SDL_Window* window = SDL_CreateWindow(
-        "Multiplayer Pong Client",
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        800, 600,
-        SDL_WINDOW_SHOWN
-    );
+    SDL_Window* window = SDL_CreateWindow("Multiplayer Pong Client", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
 
     if (nullptr == window) {
         std::cout << "Failed to create window" << SDL_GetError() << std::endl;
@@ -154,7 +151,7 @@ int main(int argc, char** argv) {
     IPaddress ip;
 
     // Resolve host (ip name + port) into an IPaddress type
-    if (SDLNet_ResolveHost(&ip, IP_NAME, PORT) == -1) {
+    if (SDLNet_ResolveHost(&ip, IP_NAME, PORT) == -1) { 
         printf("SDLNet_ResolveHost: %s\n", SDLNet_GetError());
         exit(3);
     }
@@ -177,7 +174,7 @@ int main(int argc, char** argv) {
     // Close connection to the server
     SDLNet_TCP_Close(socket);
 
-    // Shutdown SDL_net
+    // Shutdown SDL_netsha
     SDLNet_Quit();
 
     // Shutdown SDL
